@@ -1,0 +1,108 @@
+//File : Rail-fence Cipher
+
+//purpose : to make the message in capital letters form and in zig zag way
+
+//Author : farah amar naem abrahem
+
+//ID: 20230759
+
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+ cout<<"welcome,please enter the number of lines and your words: " << endl;
+
+ int k_line;
+ string w1,w2;
+ w2="";
+
+ cin>>k_line;
+ cin.ignore();
+ getline(cin,w1);      //to get the words after and with the space
+
+ for(int i =0 ; i< w1.size() ; i++){
+    //to get the letters and make sure they're alphabet and not a space or digits
+    if((w1[i]!= ' ') && (w1[i]>= 'a' && w1[i] <= 'z') || ( w1[i] >= 'A' && w1[i] <= 'Z')  ){
+
+        w2+= toupper(w1[i]);  //to make the letters capital
+         }}
+
+
+
+char arr [k_line][w2.size()] ;          //to make the lines
+ for (int i = 0 ; i < k_line ; i++){
+    for (int j = 0 ; j< w2.size();j++){
+
+       arr[i][j]= '*' ;
+    }}
+
+
+bool incrs = true ;
+int I=0 ; int J = 0 ;
+
+for (int i = 0 ; i < w2.size() ; i++){ //to get the letters in the shape of zig zag
+    if(incrs){
+     arr[I][J]= toupper(w2[i]);
+        I++;
+        J++;
+    if(I== k_line -1){
+   incrs=false;}
+        }
+
+
+
+   else{
+    arr[I][J]=toupper(w2[i]);
+    I--;
+    J++;
+    if (I ==0 ){
+    incrs=true;}
+    }
+
+
+}
+
+string encrypted = "";
+for (int i =0 ; i<k_line ; i++){
+    for (int j=0 ; j < w2.size(); j++){
+        if(arr[i][j] != '*')
+        encrypted += tolower(arr[i][j]);
+    cout << arr[i][j];
+
+ } //to not ruin the order
+ cout << endl;
+ }
+
+
+ cout << "Encrypted String: " << encrypted << endl;
+
+
+ // decrypt the string
+
+string decrypted = "";
+incrs = true;
+I = 0;
+J = 0;
+for (int i = 0; i < w2.size(); i++) {
+    if (incrs) {
+        decrypted += tolower(arr[I][J]);
+        I++;
+        J++;
+        if (I == k_line - 1)
+            incrs = false;
+    } else {
+        decrypted += tolower(arr[I][J]);
+        I--;
+        J++;
+        if (I == 0)
+            incrs = true;
+    }
+}
+cout << "Decrypted string: " << decrypted << endl;
+
+
+
+}
